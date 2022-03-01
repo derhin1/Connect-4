@@ -38,3 +38,12 @@ button{
 /* button:nth-child(4){
     margin-right: 1.5rem;
 } */
+
+
+.red{
+    background-color: red;
+}
+
+.yellow{
+    background-color: yellow;
+}

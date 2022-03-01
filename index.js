@@ -49,6 +49,7 @@ createBoard()
 
 
 // Game state
+let playerColor = 'red'
 const gameState = {
   board: board, 
   players: ['red', 'yellow'] 
@@ -58,9 +59,8 @@ const gameState = {
 
 
 // Create a button to press for the token drop
-
+const aboveBoard = document.querySelector('.aboveBoard')
 function createButton(){
-    const aboveBoard = document.querySelector('.aboveBoard')
     for(let i = 0; i < 7; i++){
     const button = document.createElement('button')
     aboveBoard.appendChild(button)
@@ -68,6 +68,28 @@ function createButton(){
 }
 
 createButton()
+
+
+// Click button change space color --- currently hard coded to be the bottom left most space
+function colorSpace(event){
+    let selectedCol = document.getElementsByTagName('col')[35]
+    if(event.target.tagName === 'BUTTON')
+    selectedCol.classList.toggle(playerColor)
+}
+
+// Need function to grab the correct index number for the specific col 
+
+aboveBoard.addEventListener('click', colorSpace)
+
+
+
+
+
+
+
+
+
+
 
 
 //Player turn display
