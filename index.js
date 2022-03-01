@@ -12,7 +12,6 @@
 
 
 
-
 // Make the board
 
 const board = [];
@@ -29,11 +28,12 @@ let tableElement = document.getElementsByTagName('table')[0]
 
 function createRow(){
     let row = document.createElement('row')
-    for(let i = 0; i <= 7; i++){
+    for(let i = 0; i < 7; i++){
         let col = document.createElement('col')
         row.appendChild(col)
     }
     tableElement.appendChild(row)
+    
 }
 
 
@@ -46,16 +46,6 @@ function createBoard(){
 
 createBoard()
 
-// for(let i = 0; i < 6; i++){
-//     let row = document.createElement('row')
-//     for(let j = 0; i < 7; j++){
-//         console.log('test')
-//         let col = document.createElement('col')
-//         row.appendChild(col)
-//     }  
-//     tableElement.appendChild(row)
-// }
-
 
 
 // Game state
@@ -65,4 +55,20 @@ const gameState = {
 }
 
 
+
+
+// Create a button to press for the token drop
+
+function createButton(){
+    const aboveBoard = document.querySelector('.aboveBoard')
+    for(let i = 0; i < 7; i++){
+    const button = document.createElement('button')
+    aboveBoard.appendChild(button)
+    }
+}
+
+createButton()
+
+
+//Player turn display
 
