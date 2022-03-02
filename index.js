@@ -193,6 +193,7 @@ function colorSpace(event){
     if(event.target.tagName === 'BUTTON' && !(movedCol.className === 'red') && !(movedCol.className === 'yellow')){
         movedCol.classList.toggle(gameState.turn)
         board[getCol(indexMover(event))].push(gameState.turn)
+        
     }
 }
 
@@ -201,7 +202,9 @@ function colorSpace(event){
 aboveBoard.addEventListener('click', function(event){  
     colorSpace(event);
     nextTurn();
-    console.log(winner())
+    // console.log(board, 'actual')
+    console.log(colWin())
+    console.log(rowWin())
 })
 
 
@@ -221,24 +224,23 @@ function nextTurn(){
 
 
 
-// Function to check win
-// from any index position, need to check every surrounding index space for the same color, and if it is we check again around that space till 4 times
-function winner(){
-   for(let i = 0; i < board.length; i ++){
-        let redCount = 0;
-        let yellowCount = 0;
+// Function to check for a column win condition
+function colWin(){
+    for(let i = 0; i < board.length; i ++){
+        let redColCount = 0;
+        let yellowColCount = 0;
         for(let j = 0; j < board[i].length; j++){
             if(board[i][j] === 'red'){
-                yellowCount = 0;
-                redCount++;
-                    if(redCount === 4){
-                        return 'Red Wins!'
-                    }
+                yellowColCount = 0;
+                redColCount++;
+                if(redColCount === 4){
+                    return 'Red Wins!'
+                }
             }
             if(board[i][j] === 'yellow'){
-                redCount = 0;
-                yellowCount++;
-                if(yellowCount === 4){
+                redColCount = 0;
+                yellowColCount++;
+                if(yellowColCount === 4){
                     return 'Yellow Wins!'
                 }
             }
@@ -246,7 +248,39 @@ function winner(){
    }
 }
 
+// Function to check a horizontal win condition
 
+function rowWin(){
+    for(let j = 0; j < 6; j++){
+        let rowArray = []
+        for(let i = 0; i < 7; i++){
+            if(board[i][j] === undefined){
+                continue;
+            }
+            rowArray.push(board[i][j])
+            if(rowArray.length >= 4){
+                stringRowArray = rowArray.join('-')
+                if(!(stringRowArray.search('red-red-red-red') === -1)){
+                    return "Red wins with 4 horizontally"
+                }
+                if(!(stringRowArray.search('yellow-yellow-yellow-yellow') === -1)){
+                    return 'Yellow wins with 4 horizontally'
+                }
+            }
+         }
+    }
+}
+
+// Function to check a diagonal win condition
+
+// function diagWin(){
+//     for(let j = 0; j < 6; j++){
+//         let diagArray = []
+//         for(let i = 0; i < 7; i++){
+//             diagArray.push(board[][])
+//         }
+//     }
+// }
 
 
 
