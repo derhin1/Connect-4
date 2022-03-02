@@ -192,24 +192,16 @@ function colorSpace(event){
     let movedCol = document.getElementsByTagName('col')[indexMover(event)]
     if(event.target.tagName === 'BUTTON' && !(movedCol.className === 'red') && !(movedCol.className === 'yellow')){
         movedCol.classList.toggle(gameState.turn)
-        // console.log(getRow(35))
-        // console.log(getRow(indexMover(event)))
         board[getCol(indexMover(event))].push(gameState.turn)
-        console.log(board)
     }
 }
-
-// // board values back end function
-// function boardUpdate(){
-//   let indexNum = indexMover()
-
-// }
 
 
 
 aboveBoard.addEventListener('click', function(event){  
     colorSpace(event);
     nextTurn();
+    console.log(winner())
 })
 
 
@@ -231,22 +223,28 @@ function nextTurn(){
 
 // Function to check win
 // from any index position, need to check every surrounding index space for the same color, and if it is we check again around that space till 4 times
-function winner(event){
-    let indexCheck = indexMover(event)
-    let checkCol = document.getElementsByTagName('col')[indexCheck]
-    for(let i = 0; i < 6; i++){
-        for(let j = 0; j < 7; j++)
-        if(checkCol.className === 'red'){
-            indexCheck = indexCheck - 7
-
+function winner(){
+   for(let i = 0; i < board.length; i ++){
+        let redCount = 0;
+        let yellowCount = 0;
+        for(let j = 0; j < board[i].length; j++){
+            if(board[i][j] === 'red'){
+                yellowCount = 0;
+                redCount++;
+                    if(redCount === 4){
+                        return 'Red Wins!'
+                    }
+            }
+            if(board[i][j] === 'yellow'){
+                redCount = 0;
+                yellowCount++;
+                if(yellowCount === 4){
+                    return 'Yellow Wins!'
+                }
+            }
         }
-        if(checkCol.className === 'yellow'){
-
-        }
-    }
+   }
 }
-
-
 
 
 
