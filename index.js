@@ -133,14 +133,78 @@ function indexMover(event){
 }
 
 
+// Converting the general index number to i and j values
+
+function getRow(number){
+    if(number < 7){
+        return 0
+    }
+    else if(number < 14){
+        return 1
+    }
+    else if(number < 21){
+        return 2
+    }
+    else if(number< 28){
+        return 3
+    }
+    else if(number < 35){
+        return 4
+    }
+    else if(number <= 41){
+        return 5
+    }
+}
+
+
+function getCol(indexNum){
+    if(indexNum % 7 === 0){
+        return 0
+    }
+    if(indexNum % 7 === 1){
+        return 1
+    }
+    if(indexNum % 7 === 2){
+        return 2
+    }
+    if(indexNum % 7 === 3){
+        return 3
+    }
+    if(indexNum % 7 === 4){
+        return 4
+    }
+    if(indexNum % 7 === 5){
+        return 5
+    }
+    if(indexNum % 7 === 6){
+        return 6
+    }
+}
+
+
+
+function convertIndex(indexNum){
+
+}
 
 // Click button change space color -- also only works if a button was pressed
 function colorSpace(event){
-    let selectedCol = document.getElementsByTagName('col')[indexMover(event)]
-    if(event.target.tagName === 'BUTTON' && !(selectedCol.className === 'red') && !(selectedCol.className === 'yellow')){
-        selectedCol.classList.toggle(gameState.turn)
+    let movedCol = document.getElementsByTagName('col')[indexMover(event)]
+    if(event.target.tagName === 'BUTTON' && !(movedCol.className === 'red') && !(movedCol.className === 'yellow')){
+        movedCol.classList.toggle(gameState.turn)
+        // console.log(getRow(35))
+        // console.log(getRow(indexMover(event)))
+        board[getCol(indexMover(event))].push(gameState.turn)
+        console.log(board)
     }
 }
+
+// // board values back end function
+// function boardUpdate(){
+//   let indexNum = indexMover()
+
+// }
+
 
 
 aboveBoard.addEventListener('click', function(event){  
@@ -162,6 +226,25 @@ function nextTurn(){
     }
 }
    
+
+
+
+// Function to check win
+// from any index position, need to check every surrounding index space for the same color, and if it is we check again around that space till 4 times
+function winner(event){
+    let indexCheck = indexMover(event)
+    let checkCol = document.getElementsByTagName('col')[indexCheck]
+    for(let i = 0; i < 6; i++){
+        for(let j = 0; j < 7; j++)
+        if(checkCol.className === 'red'){
+            indexCheck = indexCheck - 7
+
+        }
+        if(checkCol.className === 'yellow'){
+
+        }
+    }
+}
 
 
 
