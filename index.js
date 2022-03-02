@@ -52,7 +52,8 @@ createBoard()
 let playerColor = 'red'
 const gameState = {
   board: board, 
-  players: ['red', 'yellow'] 
+  players: ['red', 'yellow'] ,
+  turn: 'red'
 }
 
 
@@ -71,7 +72,7 @@ function createButton(){
 createButton()
 
 
-// Need function to grab the correct index number for the specific col 
+// Function to create a starting point for the index
 function startingIndex(event){
     let indexNum = 0
     if(event.target.className === '0'){
@@ -108,22 +109,15 @@ function startingIndex(event){
 
 
 
-// Function to check if index has a colored space already
-// function spaceChecker(){
-//     let selectedCols = document.getElementsByTagName('col')[startingIndex()]
-//     if(selectedCols.className === 'red'){
-//         return true
-//     }
-//     return false
-// }
 
-//Function that to move the index by 7 if the current col is colored
+
+//Function that will move the index by 7 if the current col is colored --- returns new index number
 function indexMover(event){
     let i = 0;
     let selectedCols = document.getElementsByTagName('col')[startingIndex(event)]
     let newIndex = startingIndex(event)
     while(i < 5){
-        if(selectedCols.className === 'red'){
+        if(selectedCols.className === 'red' || selectedCols.className ==='yellow'){
              newIndex -= 7;
              selectedCols = document.getElementsByTagName('col')[newIndex]
             i++
@@ -131,35 +125,43 @@ function indexMover(event){
          else{
              break;
          }  
-    }
-        
-    
+    }   
     return newIndex
-
 }
 
 
 
-// Click button change space color --- currently hard coded to be the bottom left most space
+// Click button change space color -- also only works if a button was pressed
 function colorSpace(event){
     let selectedCol = document.getElementsByTagName('col')[indexMover(event)]
     if(event.target.tagName === 'BUTTON'){
-        selectedCol.classList.toggle(playerColor)
+        selectedCol.classList.toggle(gameState.turn)
     }
 }
 
 
 aboveBoard.addEventListener('click', function(event){  
-    // startingIndex(event);
-    // spaceChecker(event);
     colorSpace(event);
+    nextTurn();
 })
 
 
 
 
+// Function to change the gameState turn order
 
+function nextTurn(){
+    if(gameState.turn === 'red'){
+        tableElement.addEventListener('change', gameState.turn = 'yellow')
+    }
+    else{
+        tableElement.addEventListener('change', gameState.turn = 'red')
+    }
+}
    
+
+
+
 
 
 
