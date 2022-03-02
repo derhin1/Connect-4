@@ -137,7 +137,7 @@ function indexMover(event){
 // Click button change space color -- also only works if a button was pressed
 function colorSpace(event){
     let selectedCol = document.getElementsByTagName('col')[indexMover(event)]
-    if(event.target.tagName === 'BUTTON'){
+    if(event.target.tagName === 'BUTTON' && !(selectedCol.className === 'red') && !(selectedCol.className === 'yellow')){
         selectedCol.classList.toggle(gameState.turn)
     }
 }
