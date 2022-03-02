@@ -46,16 +46,19 @@ function createBoard(){
 
 createBoard()
 
-
+function randomInt(){
+    return Math.floor(Math.random() * 2);
+}
 
 // Game state
-let playerColor = 'red'
 const gameState = {
   board: board, 
   players: ['red', 'yellow'] ,
   turn: 'red'
 }
 
+// Turn is currently defaulted at red, will use a random number gen to get a random starting color
+gameState.turn = gameState.players[randomInt()]
 
 
 
@@ -152,10 +155,10 @@ aboveBoard.addEventListener('click', function(event){
 
 function nextTurn(){
     if(gameState.turn === 'red'){
-        tableElement.addEventListener('change', gameState.turn = 'yellow')
+        gameState.turn = 'yellow'
     }
     else{
-        tableElement.addEventListener('change', gameState.turn = 'red')
+        gameState.turn = 'red'
     }
 }
    
