@@ -54,14 +54,14 @@ button{
 
  .Name1{
   position: absolute;
-  right: 5rem;
+  left: 5rem;
   top: 2rem;
   font-size: 2.5rem;
 }
 
 .Name2{
   position: absolute;
-  left: 5rem;
+   right: 5rem;
   top: 2rem;
   font-size: 2.5rem;
 } 
@@ -82,13 +82,14 @@ button{
 
 #first{
   position: absolute;
-  right: 4rem;
+  left: 14rem;
   bottom: 52rem;
 }
 
 #second{
   position: absolute;
-  left: 14rem;
+  
+  right: 4.5rem;
   bottom: 52rem;
 }
 
@@ -100,6 +101,6 @@ button{
 
 #box2{
   position: absolute;
-  right: 6rem;
+  right: 6.5rem;
   top: 5.3rem;
 }

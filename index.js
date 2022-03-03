@@ -59,6 +59,13 @@ const gameState = {
   turn: 'red'
 }
 
+function reRender(){
+    displayName1.innerText = gameState.playerName1
+    displayName2.innerText = gameState.playerName2
+}
+
+
+
 // Turn is currently defaulted at red, will use a random number gen to get a random starting color
 gameState.turn = gameState.players[randomInt()]
 
@@ -304,7 +311,7 @@ displayName2.innerText = gameState.playerName2
 // Create text input forms
 // const label = document.createElement("label")
 // label.
-const inputs = document.createElement('div')
+const inputs = document.createElement('search')
 inputs.classList.add("nameInputs")
 document.body.appendChild(inputs)
 const input1 = document.createElement("input")
@@ -333,9 +340,38 @@ inputs.appendChild(editNameButton2)
 
 
 // Click button change name
+function changePlayerName(){
+    let newName = document.getElementById('box1').value
+    let newName2 = document.getElementById('box2').value
+    if(!(newName === '')){
+        gameState.playerName1 = document.getElementById('box1').value
+    }
+    if(!(newName2 === '')){
+        gameState.playerName2 = document.getElementById('box2').value
+    }
+}
 
 
+inputs.addEventListener('click', function(){
+    changePlayerName()
+    reRender()
+}
+)
 
+inputs.addEventListener('keypress', function(e){
+    if(e.key === 'Enter'){
+    changePlayerName()
+    reRender()
+    }
+}
+)
+
+// editNameButton2.addEventListener('click', function(){
+//     changePlayerName2()
+//     displayName2.innerText = gameState.playerName2
+//     console.log(gameState.playerName2)
+// }
+// )
 
 // displayName1.addEventListener('click', )
 
