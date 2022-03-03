@@ -56,12 +56,16 @@ const gameState = {
   players: ['red', 'yellow'] ,
   playerName1: 'Enter Name',
   playerName2: 'Enter Name',
-  turn: 'red'
+  turn: 'red',
+  winner: ''
 }
 
 function reRender(){
     displayName1.innerText = gameState.playerName1
     displayName2.innerText = gameState.playerName2
+    if(!(gameState.winner === '')){
+        winnerDisplay.innerText = `${gameState.playerName1} wins!`
+    }
 }
 
 
@@ -191,11 +195,8 @@ function colorSpace(event){
 aboveBoard.addEventListener('click', function(event){  
     colorSpace(event);
     nextTurn();
-    // console.log(board, 'actual')
-    // console.log(colWin())
-    // console.log(rowWin())
-    // console.log(diagWinAsc())
-    console.log(diagWinDesc())
+    crownWinner()
+    reRender();
 })
 
 
@@ -225,14 +226,14 @@ function colWin(){
                 yellowColCount = 0;
                 redColCount++;
                 if(redColCount === 4){
-                    return 'Red Wins!'
+                    return 'Red'
                 }
             }
             if(board[i][j] === 'yellow'){
                 redColCount = 0;
                 yellowColCount++;
                 if(yellowColCount === 4){
-                    return 'Yellow Wins!'
+                    return 'Yellow'
                 }
             }
         }
@@ -252,10 +253,10 @@ function rowWin(){
             if(rowArray.length >= 4){
                 stringRowArray = rowArray.join('-')
                 if(!(stringRowArray.search('red-red-red-red') === -1)){
-                    return "Red wins with 4 horizontally"
+                    return "Red"
                 }
                 if(!(stringRowArray.search('yellow-yellow-yellow-yellow') === -1)){
-                    return 'Yellow wins with 4 horizontally'
+                    return 'Yellow'
                 }
             }
          }
@@ -268,10 +269,10 @@ function diagWinAsc(){
     for(let i = 0; i < 4; i++){
         for(let j = 0; j < 3; j++){
             if(board[i][j] === 'red' && board[i+1][j+1] === 'red' && board[i+2][j+2] === 'red' && board[i+3][j+3] === 'red'){
-                return 'Red wins diagonally'
+                return 'Red'
             }
             if(board[i][j] === 'yellow' && board[i+1][j+1] === 'yellow' && board[i+2][j+2] === 'yellow' && board[i+3][j+3] === 'yellow'){
-                return 'Yellow wins diagonally'
+                return 'Yellow'
             }
         }
     }
@@ -281,10 +282,10 @@ function diagWinDesc(){
     for(let i = 0; i < 4; i++){
         for(let j = 3; j < 6; j++){
              if(board[i][j] === 'red' && board[i+1][j-1] === 'red' && board[i+2][j-2] === 'red' && board[i+3][j-3] === 'red'){
-                return 'Red wins diagonally desc'
+                return 'Red'
             }
             if(board[i][j] === 'yellow' && board[i+1][j-1] === 'yellow' && board[i+2][j-2] === 'yellow' && board[i+3][j-3] === 'yellow'){
-                return 'Yellow wins diagonally'
+                return 'Yellow'
             }
         }
     }
@@ -292,6 +293,30 @@ function diagWinDesc(){
 
 
 // Need a function to check for draw
+
+
+
+// function to declare winner
+
+function crownWinner(){
+    if(colWin() === 'Red' || rowWin() === 'Red' || diagWinAsc() === 'Red' || diagWinDesc() === 'Red'){
+        gameState.winner = 'Red'
+    }
+    if(colWin() === 'Yellow' || rowWin() === 'Yellow' || diagWinAsc() === 'Yellow' || diagWinDesc() === 'Yellow'){
+        gameState.winner = 'Yellow'
+    }
+}
+
+
+// Winner display but only show if there is a winner
+
+const winnerDisplay = document.createElement('div')
+winnerDisplay.classList.add('winnerName')
+document.body.appendChild(winnerDisplay)
+
+
+// Display which color goes first
+
 
 
 
@@ -366,14 +391,6 @@ inputs.addEventListener('keypress', function(e){
 }
 )
 
-// editNameButton2.addEventListener('click', function(){
-//     changePlayerName2()
-//     displayName2.innerText = gameState.playerName2
-//     console.log(gameState.playerName2)
-// }
-// )
-
-// displayName1.addEventListener('click', )
 
 
 
