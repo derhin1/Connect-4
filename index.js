@@ -203,8 +203,10 @@ aboveBoard.addEventListener('click', function(event){
     colorSpace(event);
     nextTurn();
     // console.log(board, 'actual')
-    console.log(colWin())
-    console.log(rowWin())
+    // console.log(colWin())
+    // console.log(rowWin())
+    // console.log(diagWinAsc())
+    console.log(diagWinDesc())
 })
 
 
@@ -273,17 +275,30 @@ function rowWin(){
 
 // Function to check a diagonal win condition
 
-// function diagWin(){
-//     for(let j = 0; j < 6; j++){
-//         let diagArray = []
-//         for(let i = 0; i < 7; i++){
-//             diagArray.push(board[][])
-//         }
-//     }
-// }
+function diagWinAsc(){
+    for(let i = 0; i < 4; i++){
+        for(let j = 0; j < 3; j++){
+            if(board[i][j] === 'red' && board[i+1][j+1] === 'red' && board[i+2][j+2] === 'red' && board[i+3][j+3] === 'red'){
+                return 'Red wins diagonally'
+            }
+            if(board[i][j] === 'yellow' && board[i+1][j+1] === 'yellow' && board[i+2][j+2] === 'yellow' && board[i+3][j+3] === 'yellow'){
+                return 'Yellow wins diagonally'
+            }
+        }
+    }
+}
 
-
-
-
+function diagWinDesc(){
+    for(let i = 0; i < 4; i++){
+        for(let j = 3; j < 6; j++){
+             if(board[i][j] === 'red' && board[i+1][j-1] === 'red' && board[i+2][j-2] === 'red' && board[i+3][j-3] === 'red'){
+                return 'Red wins diagonally desc'
+            }
+            if(board[i][j] === 'yellow' && board[i+1][j-1] === 'yellow' && board[i+2][j-2] === 'yellow' && board[i+3][j-3] === 'yellow'){
+                return 'Yellow wins diagonally'
+            }
+        }
+    }
+}
 //Player turn display
 
