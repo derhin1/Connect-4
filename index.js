@@ -54,6 +54,8 @@ function randomInt(){
 const gameState = {
   board: board, 
   players: ['red', 'yellow'] ,
+  playerName1: 'Enter Name1',
+  playerName2: 'Enter Name2',
   turn: 'red'
 }
 
@@ -133,28 +135,8 @@ function indexMover(event){
 }
 
 
-// Converting the general index number to i and j values
+// Converting the general index number col numbers
 
-function getRow(number){
-    if(number < 7){
-        return 0
-    }
-    else if(number < 14){
-        return 1
-    }
-    else if(number < 21){
-        return 2
-    }
-    else if(number< 28){
-        return 3
-    }
-    else if(number < 35){
-        return 4
-    }
-    else if(number <= 41){
-        return 5
-    }
-}
 
 
 function getCol(indexNum){
@@ -300,5 +282,31 @@ function diagWinDesc(){
         }
     }
 }
+
+
+// Need a function to check for draw
+
+
+
+// Name Display
+
+const displayName1 = document.createElement('div')
+displayName1.classList.add('Name1')
+document.body.appendChild(displayName1)
+displayName1.innerText = gameState.playerName1
+const displayName2 = document.createElement('div')
+displayName2.classList.add('Name2')
+document.body.appendChild(displayName2)
+displayName2.innerText = gameState.playerName2
+const editNameButton = document.createElement('button')
+const editNameButton2 = document.createElement('button')
+editNameButton.classList.add('gg-pen')
+editNameButton2.classList.add('gg-pen')
+displayName1.appendChild(editNameButton)
+displayName2.appendChild(editNameButton2)
+
+
+
 //Player turn display
+
 
