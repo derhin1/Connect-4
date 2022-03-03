@@ -52,12 +52,6 @@ button{
 }
 
 
-label {
-  position: relative;
-  right: 50px;
-}
-
-
  .Name1{
   position: absolute;
   right: 5rem;
@@ -74,13 +68,38 @@ label {
 
 
 .nameButton{
-  position: relative;
+  position: absolute;
   bottom: .6rem;
 
 }
 
 .gg-pen{
-  position:relative;
-  left: 13rem;
-  bottom: 1.5rem;
+  /* position: absolute;
+  left: 9rem; */
+  /* top: 20rem; */
+  /* bottom: 1rem; */
+}
+
+#first{
+  position: absolute;
+  right: 4rem;
+  bottom: 52rem;
+}
+
+#second{
+  position: absolute;
+  left: 14rem;
+  bottom: 52rem;
+}
+
+#box1{
+  position: absolute;
+  left: 5rem;
+  top: 5.3rem;
+}
+
+#box2{
+  position: absolute;
+  right: 6rem;
+  top: 5.3rem;
 }

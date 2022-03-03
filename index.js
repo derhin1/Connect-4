@@ -54,8 +54,8 @@ function randomInt(){
 const gameState = {
   board: board, 
   players: ['red', 'yellow'] ,
-  playerName1: 'Enter Name1',
-  playerName2: 'Enter Name2',
+  playerName1: 'Enter Name',
+  playerName2: 'Enter Name',
   turn: 'red'
 }
 
@@ -298,12 +298,48 @@ const displayName2 = document.createElement('div')
 displayName2.classList.add('Name2')
 document.body.appendChild(displayName2)
 displayName2.innerText = gameState.playerName2
+
+
+
+// Create text input forms
+// const label = document.createElement("label")
+// label.
+const inputs = document.createElement('div')
+inputs.classList.add("nameInputs")
+document.body.appendChild(inputs)
+const input1 = document.createElement("input")
+input1.setAttribute("type", "text")
+input1.setAttribute("id", "box1")
+inputs.appendChild(input1)
+const input2 = document.createElement("input")
+input2.setAttribute("type", "text")
+input2.setAttribute("id", "box2")
+inputs.appendChild(input2)
+
+
+
+// Create buttons for the names
+
 const editNameButton = document.createElement('button')
 const editNameButton2 = document.createElement('button')
 editNameButton.classList.add('gg-pen')
+editNameButton.setAttribute("id", 'first')
 editNameButton2.classList.add('gg-pen')
-displayName1.appendChild(editNameButton)
-displayName2.appendChild(editNameButton2)
+editNameButton2.setAttribute("id", 'second')
+inputs.appendChild(editNameButton)
+inputs.appendChild(editNameButton2)
+
+
+
+
+// Click button change name
+
+
+
+
+// displayName1.addEventListener('click', )
+
+
 
 
 
