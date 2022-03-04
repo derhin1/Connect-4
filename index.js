@@ -50,33 +50,56 @@ function randomInt(){
     return Math.floor(Math.random() * 2);
 }
 
+
 // Game state
 const gameState = {
   board: board, 
   players: ['red', 'yellow'] ,
-  playerName1: 'Enter Name',
-  playerName2: 'Enter Name',
+  playerName: ['Enter Name', 'Enter Name'],
+  currentPlayer: '',
   turn: 'red',
   winner: ''
 }
 
-function reRender(){
-    displayName1.innerText = gameState.playerName1
-    displayName2.innerText = gameState.playerName2
 
-    turnDisplay.innerHTML = `${gameState.playerName1}'s (${gameState.turn}) turn`
+
+function reRender(){
+    if(gameState.currentPlayer === ''){
+        if(!(gameState.playerName[0] === 'Enter Name') && (!(gameState.playerName[1] === 'Enter Name'))){
+            gameState.currentPlayer = gameState.playerName[randomInt()]
+            turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn} turn)`
+        }
+    }
+    else if(!(gameState.currentPlayer === '')){
+        turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn} turn)`
+    }
+    nextPlayer()
+    displayName1.innerText = gameState.playerName[0]
+    displayName2.innerText = gameState.playerName[1]
+    console.log(gameState.currentPlayer, 'currentPlayer')
     if(!(gameState.winner === '')){
-        winnerDisplay.innerText = `${gameState.playerName1} wins!`
+        winnerDisplay.innerText = `${gameState.winner} wins!`
         turnDisplay.style.display = "none"
+    }
+}
+
+
+function nextPlayer(){
+    if(gameState.currentPlayer === gameState.playerName[0]){
+        gameState.currentPlayer = gameState.playerName[1]
+
+    }
+    else if(gameState.currentPlayer === gameState.playerName[1]){
+        console.log('working')
+        gameState.currentPlayer = gameState.playerName[0]
     }
 }
 
 
 
 // Turn is currently defaulted at red, will use a random number gen to get a random starting color
-let randPlayer = randomInt()
-gameState.turn = gameState.players[randPlayer]
 
+gameState.turn = gameState.players[randomInt()]
 
 
 // Create a button to press for the token drop
@@ -323,7 +346,6 @@ document.body.appendChild(winnerDisplay)
 const turnDisplay = document.createElement('div')
 turnDisplay.classList.add("turnOrder")
 document.body.appendChild(turnDisplay)
-// turnDisplay.innerHTML = `${gameState.playerName1}'s (${gameState.turn}) turn`
 
 
 
@@ -332,11 +354,11 @@ document.body.appendChild(turnDisplay)
 const displayName1 = document.createElement('div')
 displayName1.classList.add('Name1')
 document.body.appendChild(displayName1)
-displayName1.innerText = gameState.playerName1
+displayName1.innerText = gameState.playerName[0]
 const displayName2 = document.createElement('div')
 displayName2.classList.add('Name2')
 document.body.appendChild(displayName2)
-displayName2.innerText = gameState.playerName2
+displayName2.innerText = gameState.playerName[1]
 
 
 
@@ -374,10 +396,10 @@ function changePlayerName(event){
     let newName = document.getElementById('box1').value
     let newName2 = document.getElementById('box2').value
         if(!(newName === '')){
-            gameState.playerName1 = document.getElementById('box1').value
+            gameState.playerName[0] = document.getElementById('box1').value
         }
         if(!(newName2 === '')){
-            gameState.playerName2 = document.getElementById('box2').value
+            gameState.playerName[1] = document.getElementById('box2').value
         }
 }
 
