@@ -93,3 +93,15 @@ button{
   right: 6.5rem;
   top: 5.3rem;
 }
+
+.winnerName{
+  font-size: 2rem;
+}
+
+.turnOrder{
+  font-size: 1.5rem;
+}
+
+.draw{
+  font-size: 2rem;
+}

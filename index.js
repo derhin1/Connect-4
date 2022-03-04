@@ -67,18 +67,17 @@ function reRender(){
     if(gameState.currentPlayer === ''){
         if(!(gameState.playerName[0] === 'Enter Name') && (!(gameState.playerName[1] === 'Enter Name'))){
             gameState.currentPlayer = gameState.playerName[randomInt()]
-            turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn} turn)`
+            turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`
         }
     }
     else if(!(gameState.currentPlayer === '')){
-        turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn} turn)`
+        turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`
     }
     nextPlayer()
     displayName1.innerText = gameState.playerName[0]
     displayName2.innerText = gameState.playerName[1]
-    console.log(gameState.currentPlayer, 'currentPlayer')
     if(!(gameState.winner === '')){
-        winnerDisplay.innerText = `${gameState.winner} wins!`
+        winnerDisplay.innerText = `${gameState.currentPlayer} wins!`
         turnDisplay.style.display = "none"
     }
 }
@@ -90,7 +89,6 @@ function nextPlayer(){
 
     }
     else if(gameState.currentPlayer === gameState.playerName[1]){
-        console.log('working')
         gameState.currentPlayer = gameState.playerName[0]
     }
 }
@@ -222,7 +220,7 @@ function colorSpace(event){
 aboveBoard.addEventListener('click', function(event){  
     colorSpace(event);
     nextTurn();
-    crownWinner()
+    crownWinner();
     reRender();
 })
 
@@ -319,7 +317,18 @@ function diagWinDesc(){
 }
 
 
-// Need a function to check for draw
+// Function checks if board is full
+function boardFull(){
+    for(let i = 0; i < board.length; i++){
+        if(board[i].length === 6){
+            continue;
+        }
+        else{
+           return false
+        }
+    }
+    return true
+}
 
 
 
@@ -332,8 +341,16 @@ function crownWinner(){
     if(colWin() === 'Yellow' || rowWin() === 'Yellow' || diagWinAsc() === 'Yellow' || diagWinDesc() === 'Yellow'){
         gameState.winner = 'Yellow'
     }
+    if(boardFull() && !(colWin() === 'Red' || rowWin() === 'Red' || diagWinAsc() === 'Red' || diagWinDesc() === 'Red') && !(colWin() === 'Yellow' || rowWin() === 'Yellow' || diagWinAsc() === 'Yellow' || diagWinDesc() === 'Yellow')){
+        drawDisplay.innerHTML = "It's a draw!"
+    }
 }
 
+
+
+const drawDisplay = document.createElement('div')
+drawDisplay.classList.add('draw')
+document.body.appendChild(drawDisplay)
 
 // Winner display but only show if there is a winner
 
