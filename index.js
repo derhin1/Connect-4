@@ -63,15 +63,19 @@ const gameState = {
 function reRender(){
     displayName1.innerText = gameState.playerName1
     displayName2.innerText = gameState.playerName2
+
+    turnDisplay.innerHTML = `${gameState.playerName1}'s (${gameState.turn}) turn`
     if(!(gameState.winner === '')){
         winnerDisplay.innerText = `${gameState.playerName1} wins!`
+        turnDisplay.style.display = "none"
     }
 }
 
 
 
 // Turn is currently defaulted at red, will use a random number gen to get a random starting color
-gameState.turn = gameState.players[randomInt()]
+let randPlayer = randomInt()
+gameState.turn = gameState.players[randPlayer]
 
 
 
@@ -316,7 +320,10 @@ document.body.appendChild(winnerDisplay)
 
 
 // Display which color goes first
-
+const turnDisplay = document.createElement('div')
+turnDisplay.classList.add("turnOrder")
+document.body.appendChild(turnDisplay)
+// turnDisplay.innerHTML = `${gameState.playerName1}'s (${gameState.turn}) turn`
 
 
 
@@ -334,8 +341,6 @@ displayName2.innerText = gameState.playerName2
 
 
 // Create text input forms
-// const label = document.createElement("label")
-// label.
 const inputs = document.createElement('search')
 inputs.classList.add("nameInputs")
 document.body.appendChild(inputs)
@@ -365,37 +370,36 @@ inputs.appendChild(editNameButton2)
 
 
 // Click button change name
-function changePlayerName(){
+function changePlayerName(event){
     let newName = document.getElementById('box1').value
     let newName2 = document.getElementById('box2').value
-    if(!(newName === '')){
-        gameState.playerName1 = document.getElementById('box1').value
-    }
-    if(!(newName2 === '')){
-        gameState.playerName2 = document.getElementById('box2').value
-    }
+        if(!(newName === '')){
+            gameState.playerName1 = document.getElementById('box1').value
+        }
+        if(!(newName2 === '')){
+            gameState.playerName2 = document.getElementById('box2').value
+        }
 }
 
 
-inputs.addEventListener('click', function(){
-    changePlayerName()
-    reRender()
-}
-)
+inputs.addEventListener('click', function(event){
+    if(event.target.tagName === 'BUTTON'){
+        changePlayerName()
+        reRender()
+    }
+})
 
 inputs.addEventListener('keypress', function(e){
     if(e.key === 'Enter'){
     changePlayerName()
     reRender()
     }
-}
-)
+})
 
 
 
 
 
 
-//Player turn display
 
 
