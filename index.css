@@ -120,3 +120,7 @@ button{
   right: 5rem;
   top: 7.5rem;
 }
+
+.hide{
+  display: none
+}

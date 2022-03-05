@@ -224,6 +224,7 @@ aboveBoard.addEventListener('click', function(event){
     colorSpace(event);
     nextTurn();
     crownWinner();
+    autoMove();
     reRender();
 })
 
@@ -274,9 +275,6 @@ function rowWin(){
     for(let j = 0; j < 6; j++){
         let rowArray = [];
         for(let i = 0; i < 7; i++){
-            if(board[i][j] === undefined){
-                continue;
-            }
             rowArray.push(board[i][j])
             if(rowArray.length >= 4){
                 stringRowArray = rowArray.join('-');
@@ -416,8 +414,12 @@ document.body.appendChild(singlePlayerButton)
 singlePlayerButton.innerHTML = 'Click for single player game'
 
 singlePlayerButton.addEventListener('click', function(){
-    setSinglePlayer()
-    reRender()
+    setSinglePlayer();
+    editNameButton2.classList.toggle("hide");
+    input2.classList.toggle('hide');
+    singlePlayerButton.classList.toggle('hide');
+    reRender();
+
 })
 
 function setSinglePlayer(){
@@ -489,9 +491,20 @@ function resetGameState(){
     turnDisplay.innerHTML = '';
     winnerDisplay.innerHTML = '';
     drawDisplay.innerHTML = '';
+    editNameButton2.classList.toggle("hide");
+    input2.classList.toggle('hide');
+    singlePlayerButton.classList.toggle('hide');
 }
 
 
+// Function to have computer place tokens if second name is set to computer
+function autoMove(){
+    if(gameState.playerName[1] === 'Computer' && gameState.currentPlayer === 'Computer'){
+        let randomButtonNumber = String(Math.floor(Math.random() * 7))
+        const specificButton = document.getElementsByClassName(randomButtonNumber)[0]
+        specificButton.click()
+    }
+}
 
 
 
