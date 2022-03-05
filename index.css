@@ -112,3 +112,11 @@ button{
   width: 6rem;
   height: 3rem;
 }
+
+#singlePlayer{
+  position: absolute;
+  width: 8rem;
+  height: 3rem;
+  right: 5rem;
+  top: 7.5rem;
+}

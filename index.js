@@ -409,12 +409,27 @@ inputs.appendChild(editNameButton);
 inputs.appendChild(editNameButton2);
 
 
+// Button for Single player mode
+const singlePlayerButton = document.createElement('button')
+singlePlayerButton.setAttribute("id", 'singlePlayer')
+document.body.appendChild(singlePlayerButton)
+singlePlayerButton.innerHTML = 'Click for single player game'
+
+singlePlayerButton.addEventListener('click', function(){
+    setSinglePlayer()
+    reRender()
+})
+
+function setSinglePlayer(){
+    gameState.playerName[1] = 'Computer'
+}
+
+
 // Button for reset game
 const restartButton = document.createElement('button');
 restartButton.setAttribute("id", "restart");
 document.body.appendChild(restartButton);
 restartButton.innerHTML = 'Restart Game';
-
 
 // Click button change name
 function changePlayerName(event){
