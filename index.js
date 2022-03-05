@@ -237,7 +237,6 @@ aboveBoard.addEventListener('click', function(event){
     if(gameState.winner === ''){
         autoMove();
     }
-    console.log(board[event.target.className])
     reRender();
 })
 
@@ -500,7 +499,7 @@ function resetGameState(){
     gameState.playerName = ['Enter Name', 'Enter Name'];
     gameState.currentPlayer = '';
     gameState.turn = 'red';
-    winner = '';
+    gameState.winner = '';
     document.getElementById('box1').value = '';
     document.getElementById('box2').value = '';
     turnDisplay.innerHTML = '';
