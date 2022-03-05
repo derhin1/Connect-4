@@ -80,7 +80,7 @@ function reRender(){
     displayName2.innerText = gameState.playerName[1];
     if(!(gameState.winner === '')){
         winnerDisplay.innerText = `${gameState.currentPlayer} wins!`;
-        turnDisplay.style.display = "none";
+        turnDisplay.classList.toggle('hide');
     }
 }
 
@@ -213,8 +213,11 @@ function colorSpace(event){
     if(event.target.tagName === 'BUTTON' && !(movedCol.className === 'red') && !(movedCol.className === 'yellow')){
         movedCol.classList.toggle(gameState.turn);
         board[getCol(indexMover(event))].push(gameState.turn);
-        nextPlayer()
-        nextColor()
+        crownWinner();
+        if(gameState.winner === ''){
+            nextPlayer();
+            nextColor();
+        }
     }
 }
 
@@ -231,7 +234,6 @@ function colFull(event){
 
 aboveBoard.addEventListener('click', function(event){  
     colorSpace(event);
-    crownWinner();
     if(gameState.winner === ''){
         autoMove();
     }
@@ -354,6 +356,7 @@ function crownWinner(){
     }
     if(boardFull() && !(colWin() === 'Red' || rowWin() === 'Red' || diagWinAsc() === 'Red' || diagWinDesc() === 'Red') && !(colWin() === 'Yellow' || rowWin() === 'Yellow' || diagWinAsc() === 'Yellow' || diagWinDesc() === 'Yellow')){
         drawDisplay.innerHTML = "It's a draw!";
+        turnDisplay.classList.toggle('hide')
     }
 }
 
@@ -507,6 +510,7 @@ function resetGameState(){
         editNameButton2.classList.toggle("hide");
         input2.classList.toggle('hide');
         singlePlayerButton.classList.toggle('hide');
+        turnDisplay.classList.toggle('hide')
     }
 }
 
