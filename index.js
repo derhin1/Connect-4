@@ -76,7 +76,6 @@ function reRender(){
     else if(!(gameState.currentPlayer === '')){
         turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`;
     }
-    nextPlayer()
     displayName1.innerText = gameState.playerName[0];
     displayName2.innerText = gameState.playerName[1];
     if(!(gameState.winner === '')){
@@ -214,17 +213,29 @@ function colorSpace(event){
     if(event.target.tagName === 'BUTTON' && !(movedCol.className === 'red') && !(movedCol.className === 'yellow')){
         movedCol.classList.toggle(gameState.turn);
         board[getCol(indexMover(event))].push(gameState.turn);
-        
+        nextPlayer()
+        nextColor()
+    }
+}
+
+function colFull(event){
+    let movedCol = document.getElementsByTagName('col')[indexMover(event)];
+    if(movedCol.className === 'red' || movedCol.className === 'yellow'){
+        return false;
+    }
+    else{
+        return true;
     }
 }
 
 
-
 aboveBoard.addEventListener('click', function(event){  
     colorSpace(event);
-    nextTurn();
     crownWinner();
-    autoMove();
+    if(gameState.winner === ''){
+        autoMove();
+    }
+    console.log(board[event.target.className])
     reRender();
 })
 
@@ -233,7 +244,7 @@ aboveBoard.addEventListener('click', function(event){
 
 // Function to change the gameState turn order
 
-function nextTurn(){
+function nextColor(){
     if(gameState.turn === 'red'){
         gameState.turn = 'yellow';
     }
@@ -318,7 +329,7 @@ function diagWinDesc(){
 }
 
 
-// Function checks if board is full
+// Function checks if entire board is full
 function boardFull(){
     for(let i = 0; i < board.length; i++){
         if(board[i].length === 6){
@@ -330,7 +341,6 @@ function boardFull(){
     }
     return true;
 }
-
 
 
 // function to declare winner
@@ -419,6 +429,7 @@ singlePlayerButton.addEventListener('click', function(){
     input2.classList.toggle('hide');
     singlePlayerButton.classList.toggle('hide');
     reRender();
+    autoMove();
 
 })
 
@@ -450,6 +461,7 @@ inputs.addEventListener('click', function(event){
     if(event.target.tagName === 'BUTTON'){
         changePlayerName();
         reRender();
+        autoMove();
     }
 })
 
@@ -491,14 +503,21 @@ function resetGameState(){
     turnDisplay.innerHTML = '';
     winnerDisplay.innerHTML = '';
     drawDisplay.innerHTML = '';
-    editNameButton2.classList.toggle("hide");
-    input2.classList.toggle('hide');
-    singlePlayerButton.classList.toggle('hide');
+    if(input2.className === 'hide'){
+        editNameButton2.classList.toggle("hide");
+        input2.classList.toggle('hide');
+        singlePlayerButton.classList.toggle('hide');
+    }
 }
 
 
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Function to have computer place tokens if second name is set to computer
-function autoMove(){
+async function autoMove(){
+    await timeout(1000);
     if(gameState.playerName[1] === 'Computer' && gameState.currentPlayer === 'Computer'){
         let randomButtonNumber = String(Math.floor(Math.random() * 7))
         const specificButton = document.getElementsByClassName(randomButtonNumber)[0]
