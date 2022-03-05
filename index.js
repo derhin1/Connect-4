@@ -15,24 +15,27 @@
 // Make the board
 
 const board = [];
-
-for (let i = 0; i < 7; i++) {
-  board.push([])
+function arrBoard(){
+    for (let i = 0; i < 7; i++) {
+        board.push([]);
+    }
 }
 
+arrBoard();
 
-// Visually display board, (not round shaped yet)
 
-let tableElement = document.getElementsByTagName('table')[0]
+// Visually display board,
+
+let tableElement = document.getElementsByTagName('table')[0];
 
 
 function createRow(){
-    let row = document.createElement('row')
+    let row = document.createElement('row');
     for(let i = 0; i < 7; i++){
-        let col = document.createElement('col')
-        row.appendChild(col)
+        let col = document.createElement('col');
+        row.appendChild(col);
     }
-    tableElement.appendChild(row)
+    tableElement.appendChild(row);
     
 }
 
@@ -66,30 +69,30 @@ const gameState = {
 function reRender(){
     if(gameState.currentPlayer === ''){
         if(!(gameState.playerName[0] === 'Enter Name') && (!(gameState.playerName[1] === 'Enter Name'))){
-            gameState.currentPlayer = gameState.playerName[randomInt()]
-            turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`
+            gameState.currentPlayer = gameState.playerName[randomInt()];
+            turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`;
         }
     }
     else if(!(gameState.currentPlayer === '')){
-        turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`
+        turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`;
     }
     nextPlayer()
-    displayName1.innerText = gameState.playerName[0]
-    displayName2.innerText = gameState.playerName[1]
+    displayName1.innerText = gameState.playerName[0];
+    displayName2.innerText = gameState.playerName[1];
     if(!(gameState.winner === '')){
-        winnerDisplay.innerText = `${gameState.currentPlayer} wins!`
-        turnDisplay.style.display = "none"
+        winnerDisplay.innerText = `${gameState.currentPlayer} wins!`;
+        turnDisplay.style.display = "none";
     }
 }
 
 
 function nextPlayer(){
     if(gameState.currentPlayer === gameState.playerName[0]){
-        gameState.currentPlayer = gameState.playerName[1]
+        gameState.currentPlayer = gameState.playerName[1];
 
     }
     else if(gameState.currentPlayer === gameState.playerName[1]){
-        gameState.currentPlayer = gameState.playerName[0]
+        gameState.currentPlayer = gameState.playerName[0];
     }
 }
 
@@ -97,52 +100,52 @@ function nextPlayer(){
 
 // Turn is currently defaulted at red, will use a random number gen to get a random starting color
 
-gameState.turn = gameState.players[randomInt()]
+gameState.turn = gameState.players[randomInt()];
 
 
 // Create a button to press for the token drop
-const aboveBoard = document.querySelector('.aboveBoard')
+const aboveBoard = document.querySelector('.aboveBoard');
 function createButton(){
     for(let i = 0; i < 7; i++){
-    const button = document.createElement('button')
-    button.classList.add(i)
-    aboveBoard.appendChild(button)
+    const button = document.createElement('button');
+    button.classList.add(i);
+    aboveBoard.appendChild(button);
     }
 }
 
-createButton()
+createButton();
 
 
 // Function to create a starting point for the index
 function startingIndex(event){
-    let indexNum = 0
+    let indexNum = 0;
     if(event.target.className === '0'){
-        indexNum = 35
-        return indexNum
+        indexNum = 35;
+        return indexNum;
     }
     if(event.target.className === '1'){
-        indexNum = 36
-        return indexNum
+        indexNum = 36;
+        return indexNum;
     }
     if(event.target.className === '2'){
-        indexNum = 37
-        return indexNum
+        indexNum = 37;
+        return indexNum;
     }
     if(event.target.className === '3'){
-        indexNum = 38
-        return indexNum
+        indexNum = 38;
+        return indexNum;
     }
     if(event.target.className === '4'){
-        indexNum = 39
-        return indexNum
+        indexNum = 39;
+        return indexNum;
     }
     if(event.target.className === '5'){
-        indexNum = 40
-        return indexNum
+        indexNum = 40;
+        return indexNum;
     }
     if(event.target.className === '6'){
-        indexNum = 41
-        return indexNum
+        indexNum = 41;
+        return indexNum;
     }
     
 }
@@ -155,13 +158,13 @@ function startingIndex(event){
 //Function that will move the index by 7 if the current col is colored --- returns new index number
 function indexMover(event){
     let i = 0;
-    let selectedCols = document.getElementsByTagName('col')[startingIndex(event)]
-    let newIndex = startingIndex(event)
+    let selectedCols = document.getElementsByTagName('col')[startingIndex(event)];
+    let newIndex = startingIndex(event);
     while(i < 5){
         if(selectedCols.className === 'red' || selectedCols.className ==='yellow'){
              newIndex -= 7;
-             selectedCols = document.getElementsByTagName('col')[newIndex]
-            i++
+             selectedCols = document.getElementsByTagName('col')[newIndex];
+            i++;
         }
          else{
              break;
@@ -177,25 +180,25 @@ function indexMover(event){
 
 function getCol(indexNum){
     if(indexNum % 7 === 0){
-        return 0
+        return 0;
     }
     if(indexNum % 7 === 1){
-        return 1
+        return 1;
     }
     if(indexNum % 7 === 2){
-        return 2
+        return 2;
     }
     if(indexNum % 7 === 3){
-        return 3
+        return 3;
     }
     if(indexNum % 7 === 4){
-        return 4
+        return 4;
     }
     if(indexNum % 7 === 5){
-        return 5
+        return 5;
     }
     if(indexNum % 7 === 6){
-        return 6
+        return 6;
     }
 }
 
@@ -207,10 +210,10 @@ function convertIndex(indexNum){
 
 // Click button change space color -- also only works if a button was pressed
 function colorSpace(event){
-    let movedCol = document.getElementsByTagName('col')[indexMover(event)]
+    let movedCol = document.getElementsByTagName('col')[indexMover(event)];
     if(event.target.tagName === 'BUTTON' && !(movedCol.className === 'red') && !(movedCol.className === 'yellow')){
-        movedCol.classList.toggle(gameState.turn)
-        board[getCol(indexMover(event))].push(gameState.turn)
+        movedCol.classList.toggle(gameState.turn);
+        board[getCol(indexMover(event))].push(gameState.turn);
         
     }
 }
@@ -231,10 +234,10 @@ aboveBoard.addEventListener('click', function(event){
 
 function nextTurn(){
     if(gameState.turn === 'red'){
-        gameState.turn = 'yellow'
+        gameState.turn = 'yellow';
     }
     else{
-        gameState.turn = 'red'
+        gameState.turn = 'red';
     }
 }
    
@@ -251,14 +254,14 @@ function colWin(){
                 yellowColCount = 0;
                 redColCount++;
                 if(redColCount === 4){
-                    return 'Red'
+                    return 'Red';
                 }
             }
             if(board[i][j] === 'yellow'){
                 redColCount = 0;
                 yellowColCount++;
                 if(yellowColCount === 4){
-                    return 'Yellow'
+                    return 'Yellow';
                 }
             }
         }
@@ -269,19 +272,19 @@ function colWin(){
 
 function rowWin(){
     for(let j = 0; j < 6; j++){
-        let rowArray = []
+        let rowArray = [];
         for(let i = 0; i < 7; i++){
             if(board[i][j] === undefined){
                 continue;
             }
             rowArray.push(board[i][j])
             if(rowArray.length >= 4){
-                stringRowArray = rowArray.join('-')
+                stringRowArray = rowArray.join('-');
                 if(!(stringRowArray.search('red-red-red-red') === -1)){
-                    return "Red"
+                    return "Red";
                 }
                 if(!(stringRowArray.search('yellow-yellow-yellow-yellow') === -1)){
-                    return 'Yellow'
+                    return 'Yellow';
                 }
             }
          }
@@ -294,10 +297,10 @@ function diagWinAsc(){
     for(let i = 0; i < 4; i++){
         for(let j = 0; j < 3; j++){
             if(board[i][j] === 'red' && board[i+1][j+1] === 'red' && board[i+2][j+2] === 'red' && board[i+3][j+3] === 'red'){
-                return 'Red'
+                return 'Red';
             }
             if(board[i][j] === 'yellow' && board[i+1][j+1] === 'yellow' && board[i+2][j+2] === 'yellow' && board[i+3][j+3] === 'yellow'){
-                return 'Yellow'
+                return 'Yellow';
             }
         }
     }
@@ -307,10 +310,10 @@ function diagWinDesc(){
     for(let i = 0; i < 4; i++){
         for(let j = 3; j < 6; j++){
              if(board[i][j] === 'red' && board[i+1][j-1] === 'red' && board[i+2][j-2] === 'red' && board[i+3][j-3] === 'red'){
-                return 'Red'
+                return 'Red';
             }
             if(board[i][j] === 'yellow' && board[i+1][j-1] === 'yellow' && board[i+2][j-2] === 'yellow' && board[i+3][j-3] === 'yellow'){
-                return 'Yellow'
+                return 'Yellow';
             }
         }
     }
@@ -324,10 +327,10 @@ function boardFull(){
             continue;
         }
         else{
-           return false
+           return false;
         }
     }
-    return true
+    return true;
 }
 
 
@@ -336,76 +339,81 @@ function boardFull(){
 
 function crownWinner(){
     if(colWin() === 'Red' || rowWin() === 'Red' || diagWinAsc() === 'Red' || diagWinDesc() === 'Red'){
-        gameState.winner = 'Red'
+        gameState.winner = 'Red';
     }
     if(colWin() === 'Yellow' || rowWin() === 'Yellow' || diagWinAsc() === 'Yellow' || diagWinDesc() === 'Yellow'){
-        gameState.winner = 'Yellow'
+        gameState.winner = 'Yellow';
     }
     if(boardFull() && !(colWin() === 'Red' || rowWin() === 'Red' || diagWinAsc() === 'Red' || diagWinDesc() === 'Red') && !(colWin() === 'Yellow' || rowWin() === 'Yellow' || diagWinAsc() === 'Yellow' || diagWinDesc() === 'Yellow')){
-        drawDisplay.innerHTML = "It's a draw!"
+        drawDisplay.innerHTML = "It's a draw!";
     }
 }
 
 
 
-const drawDisplay = document.createElement('div')
-drawDisplay.classList.add('draw')
-document.body.appendChild(drawDisplay)
+const drawDisplay = document.createElement('div');
+drawDisplay.classList.add('draw');
+document.body.appendChild(drawDisplay);
 
 // Winner display but only show if there is a winner
 
-const winnerDisplay = document.createElement('div')
-winnerDisplay.classList.add('winnerName')
-document.body.appendChild(winnerDisplay)
+const winnerDisplay = document.createElement('div');
+winnerDisplay.classList.add('winnerName');
+document.body.appendChild(winnerDisplay);
 
 
 // Display which color goes first
-const turnDisplay = document.createElement('div')
-turnDisplay.classList.add("turnOrder")
-document.body.appendChild(turnDisplay)
+const turnDisplay = document.createElement('div');
+turnDisplay.classList.add("turnOrder");
+document.body.appendChild(turnDisplay);
 
 
 
 // Name Display
 
-const displayName1 = document.createElement('div')
-displayName1.classList.add('Name1')
-document.body.appendChild(displayName1)
-displayName1.innerText = gameState.playerName[0]
-const displayName2 = document.createElement('div')
-displayName2.classList.add('Name2')
-document.body.appendChild(displayName2)
-displayName2.innerText = gameState.playerName[1]
+const displayName1 = document.createElement('div');
+displayName1.classList.add('Name1');
+document.body.appendChild(displayName1);
+displayName1.innerText = gameState.playerName[0];
+const displayName2 = document.createElement('div');
+displayName2.classList.add('Name2');
+document.body.appendChild(displayName2);
+displayName2.innerText = gameState.playerName[1];
 
 
 
 // Create text input forms
-const inputs = document.createElement('search')
-inputs.classList.add("nameInputs")
-document.body.appendChild(inputs)
-const input1 = document.createElement("input")
-input1.setAttribute("type", "text")
-input1.setAttribute("id", "box1")
-inputs.appendChild(input1)
-const input2 = document.createElement("input")
-input2.setAttribute("type", "text")
-input2.setAttribute("id", "box2")
-inputs.appendChild(input2)
+const inputs = document.createElement('search');
+inputs.classList.add("nameInputs");
+document.body.appendChild(inputs);
+const input1 = document.createElement("input");
+input1.setAttribute("type", "text");
+input1.setAttribute("id", "box1");
+inputs.appendChild(input1);
+const input2 = document.createElement("input");
+input2.setAttribute("type", "text");
+input2.setAttribute("id", "box2");
+inputs.appendChild(input2);
 
 
 
 // Create buttons for the names
 
-const editNameButton = document.createElement('button')
-const editNameButton2 = document.createElement('button')
-editNameButton.classList.add('gg-pen')
-editNameButton.setAttribute("id", 'first')
-editNameButton2.classList.add('gg-pen')
-editNameButton2.setAttribute("id", 'second')
-inputs.appendChild(editNameButton)
-inputs.appendChild(editNameButton2)
+const editNameButton = document.createElement('button');
+const editNameButton2 = document.createElement('button');
+editNameButton.classList.add('gg-pen');
+editNameButton.setAttribute("id", 'first');
+editNameButton2.classList.add('gg-pen');
+editNameButton2.setAttribute("id", 'second');
+inputs.appendChild(editNameButton);
+inputs.appendChild(editNameButton2);
 
 
+// Button for reset game
+const restartButton = document.createElement('button');
+restartButton.setAttribute("id", "restart");
+document.body.appendChild(restartButton);
+restartButton.innerHTML = 'Restart Game';
 
 
 // Click button change name
@@ -423,20 +431,50 @@ function changePlayerName(event){
 
 inputs.addEventListener('click', function(event){
     if(event.target.tagName === 'BUTTON'){
-        changePlayerName()
-        reRender()
+        changePlayerName();
+        reRender();
     }
 })
 
 inputs.addEventListener('keypress', function(e){
     if(e.key === 'Enter'){
-    changePlayerName()
-    reRender()
+    changePlayerName();
+    reRender();
     }
 })
 
+restartButton.addEventListener('click', function(){
+    resetGameState();
+    resetBoard();
+    reRender();
+})
 
+function resetBoard(){
+    const allCols = document.getElementsByTagName('col');
+    for(let i = 0; i < allCols.length; i++){
+            if(allCols[i].className === 'red'){
+                allCols[i].classList.toggle('red');
+            }
+            if(allCols[i].className === 'yellow'){
+                allCols[i].classList.toggle('yellow');
+            }
+        }
+}
 
+function resetGameState(){
+    board.splice(0, board.length);
+    arrBoard();
+    gameState.board = board;
+    gameState.playerName = ['Enter Name', 'Enter Name'];
+    gameState.currentPlayer = '';
+    gameState.turn = 'red';
+    winner = '';
+    document.getElementById('box1').value = '';
+    document.getElementById('box2').value = '';
+    turnDisplay.innerHTML = '';
+    winnerDisplay.innerHTML = '';
+    drawDisplay.innerHTML = '';
+}
 
 
 
