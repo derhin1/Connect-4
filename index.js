@@ -70,17 +70,25 @@ function reRender(){
     if(gameState.currentPlayer === ''){
         if(!(gameState.playerName[0] === 'Enter Name') && (!(gameState.playerName[1] === 'Enter Name'))){
             gameState.currentPlayer = gameState.playerName[randomInt()];
-            turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`;
+            turnDisplay.innerText = `${gameState.currentPlayer}'s (${gameState.turn}) turn`;
         }
     }
     else if(!(gameState.currentPlayer === '')){
-        turnDisplay.innerHTML = `${gameState.currentPlayer}'s (${gameState.turn}) turn`;
+        turnDisplay.innerText = `${gameState.currentPlayer}'s (${gameState.turn}) turn`;
     }
     displayName1.innerText = gameState.playerName[0];
     displayName2.innerText = gameState.playerName[1];
     if(!(gameState.winner === '')){
-        winnerDisplay.innerText = `${gameState.currentPlayer} wins!`;
-        turnDisplay.classList.toggle('hide');
+        if(gameState.currentPlayer === '' && gameState.winner === 'Red'){
+            winnerDisplay.innerText = "Red wins!"
+        }
+        else if(gameState.currentPlayer === '' && gameState.winner === 'Yellow'){
+            winnerDisplay.innerText = "Yellow wins!"
+        }
+        else{
+            winnerDisplay.innerText = `${gameState.currentPlayer} wins!`;
+            turnDisplay.classList.toggle('hide');
+        }
     }
 }
 
@@ -354,7 +362,7 @@ function crownWinner(){
         gameState.winner = 'Yellow';
     }
     if(boardFull() && !(colWin() === 'Red' || rowWin() === 'Red' || diagWinAsc() === 'Red' || diagWinDesc() === 'Red') && !(colWin() === 'Yellow' || rowWin() === 'Yellow' || diagWinAsc() === 'Yellow' || diagWinDesc() === 'Yellow')){
-        drawDisplay.innerHTML = "It's a draw!";
+        drawDisplay.innerText = "It's a draw!";
         turnDisplay.classList.toggle('hide')
     }
 }
@@ -423,7 +431,7 @@ inputs.appendChild(editNameButton2);
 const singlePlayerButton = document.createElement('button')
 singlePlayerButton.setAttribute("id", 'singlePlayer')
 document.body.appendChild(singlePlayerButton)
-singlePlayerButton.innerHTML = 'Click for single player game'
+singlePlayerButton.innerText = 'Click for single player game'
 
 singlePlayerButton.addEventListener('click', function(){
     setSinglePlayer();
@@ -444,7 +452,7 @@ function setSinglePlayer(){
 const restartButton = document.createElement('button');
 restartButton.setAttribute("id", "restart");
 document.body.appendChild(restartButton);
-restartButton.innerHTML = 'Restart Game';
+restartButton.innerText = 'Restart Game';
 
 // Click button change name
 function changePlayerName(event){
@@ -502,9 +510,9 @@ function resetGameState(){
     gameState.winner = '';
     document.getElementById('box1').value = '';
     document.getElementById('box2').value = '';
-    turnDisplay.innerHTML = '';
-    winnerDisplay.innerHTML = '';
-    drawDisplay.innerHTML = '';
+    turnDisplay.innerText = '';
+    winnerDisplay.innerText = '';
+    drawDisplay.innerText = '';
     if(input2.className === 'hide'){
         editNameButton2.classList.toggle("hide");
         input2.classList.toggle('hide');
