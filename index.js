@@ -1,18 +1,5 @@
-// As a user for two player game:
-// enter our names and have them displayed
-// have our order chosen for us by the game
- // take turns by dropping our chip into a column on the grid
-// not be able to drop a chip into a totally filled column
- // be told when a move causes a player to win, or to draw
- // start the game over without having to reset the browser
 
- // User for single player game:
-// see the name 'Computer' displayed as my opponent
-// have the Computer player choose columns as if it were a human player
-
-
-
-// Make the board
+// Make the board array for backend purposes
 
 const board = [];
 function arrBoard(){
@@ -24,7 +11,7 @@ function arrBoard(){
 arrBoard();
 
 
-// Visually display board,
+// Visually display board
 
 let tableElement = document.getElementsByTagName('table')[0];
 
@@ -64,8 +51,7 @@ const gameState = {
   winner: ''
 }
 
-
-
+// Function to re-render the displays.
 function reRender(){
     if(gameState.currentPlayer === ''){
         if(!(gameState.playerName[0] === 'Enter Name') && (!(gameState.playerName[1] === 'Enter Name'))){
@@ -92,7 +78,7 @@ function reRender(){
     }
 }
 
-
+// Function to alternate to the next player
 function nextPlayer(){
     if(gameState.currentPlayer === gameState.playerName[0]){
         gameState.currentPlayer = gameState.playerName[1];
@@ -158,10 +144,6 @@ function startingIndex(event){
 }
 
 
-
-
-
-
 //Function that will move the index by 7 if the current col is colored --- returns new index number
 function indexMover(event){
     let i = 0;
@@ -182,9 +164,6 @@ function indexMover(event){
 
 
 // Converting the general index number col numbers
-
-
-
 function getCol(indexNum){
     if(indexNum % 7 === 0){
         return 0;
@@ -209,13 +188,13 @@ function getCol(indexNum){
     }
 }
 
-
-
-function convertIndex(indexNum){
-
-}
-
-// Click button change space color -- also only works if a button was pressed
+/* 
+Click button change space color / next player and 
+next color functions were placed in here to take advantage 
+of the same if statement conditions, and the win condition
+checker had to be placed above the next turn functions
+so it was also placed in this function 
+ */
 function colorSpace(event){
     let movedCol = document.getElementsByTagName('col')[indexMover(event)];
     if(event.target.tagName === 'BUTTON' && !(movedCol.className === 'red') && !(movedCol.className === 'yellow')){
@@ -229,6 +208,8 @@ function colorSpace(event){
     }
 }
 
+
+// Function to check if the column is full
 function colFull(event){
     let movedCol = document.getElementsByTagName('col')[indexMover(event)];
     if(movedCol.className === 'red' || movedCol.className === 'yellow'){
@@ -239,7 +220,7 @@ function colFull(event){
     }
 }
 
-
+// Click button on top of each column to color a space
 aboveBoard.addEventListener('click', function(event){  
     colorSpace(event);
     if(gameState.winner === ''){
@@ -252,7 +233,6 @@ aboveBoard.addEventListener('click', function(event){
 
 
 // Function to change the gameState turn order
-
 function nextColor(){
     if(gameState.turn === 'red'){
         gameState.turn = 'yellow';
@@ -367,7 +347,7 @@ function crownWinner(){
     }
 }
 
-
+// Display for when theres a draw
 
 const drawDisplay = document.createElement('div');
 drawDisplay.classList.add('draw');
@@ -443,6 +423,8 @@ singlePlayerButton.addEventListener('click', function(){
 
 })
 
+// Function to set the computer name when button is pressed
+
 function setSinglePlayer(){
     gameState.playerName[1] = 'Computer'
 }
@@ -467,6 +449,7 @@ function changePlayerName(event){
 }
 
 
+// Listeners for the name input boxes, works for clicking the pen and on pressing enter
 inputs.addEventListener('click', function(event){
     if(event.target.tagName === 'BUTTON'){
         changePlayerName();
@@ -482,11 +465,15 @@ inputs.addEventListener('keypress', function(e){
     }
 })
 
+// Press reset button to reset everything back
+
 restartButton.addEventListener('click', function(){
     resetGameState();
     resetBoard();
     reRender();
 })
+
+// Function to reset the board visually
 
 function resetBoard(){
     const allCols = document.getElementsByTagName('col');
@@ -499,6 +486,8 @@ function resetBoard(){
             }
         }
 }
+
+// Function to reset all the backend 
 
 function resetGameState(){
     board.splice(0, board.length);
@@ -521,12 +510,18 @@ function resetGameState(){
     }
 }
 
+// function to allow the timeout to be awaited 
 
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Function to have computer place tokens if second name is set to computer
+/* 
+Function to have computer place tokens if 
+second name is set to computer. A timeout was placed
+so that players don't see two chips instantly placed 
+when they press a button.
+*/
 async function autoMove(){
     await timeout(1000);
     if(gameState.playerName[1] === 'Computer' && gameState.currentPlayer === 'Computer'){
